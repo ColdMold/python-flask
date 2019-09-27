@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Assignment 10</title>
+</head>
+<body>
+
+{% if guess != None %}
+<div>
+	{% if guess|int == number|int %}
+	<p>You guessed correctly</p>
+
+	{% else %}
+	<p>Your guess, {{guess}}, was incorrect...</p>
+	<form name="numberForm" action="/assignment10.html" method="post" onsubmit="return true;">
+        Your guess: <input type="text" name="guess"><br>
+            	    <input type="hidden" name="number" value={{number}}>
+                    <input type="submit" value="Guess!">
+        </form>
+	
+	{% endif %}
+
+</div>
+
+{% elif fname and lname %}
+
+<p>Hi {{fname}} {{lname}}!</p>
+<p>Guess a number from 1 to 5...</p>
+<form name="numberForm" action="/assignment10.html" method="post" onsubmit="return true;">
+Your guess: <input type="text" name="guess"><br>
+            <input type="hidden" name="number" value={{randomNum}}>
+            <input type="submit" value="Guess!">
+</form>
+
+{% else %}
+
+<h1>Welcome to CSCE 3193 Asssignment 10!</h1>
+
+<p>Please fill out the form below to begin a super fun game.</p>
+
+<form name="nameForm" action="/assignment10.html" method="get" onsubmit="return validateForm()">
+
+Your first name: <input type="text" name="fname" value="Seth"><br>
+Your last name: <input type="text" name="lname" value="Piepergerdes"><br>
+
+<input type="submit" value="Submit">
+</form>
+
+<p id="invalidForm"></p>
+
+{% endif %}
+
+</body>
+</html>
+
+<script>
+function validateForm() {
+	var fname = document.forms["nameForm"]["fname"].value;
+	var lname = document.forms["nameForm"]["lname"].value;
+	
+	if(fname == "" || lname == "")
+	{
+		document.getElementById("invalidForm").innerHTML = "Make sure you put a first AND last name!";
+		return false;
+	}
+
+	return true;
+}
+</script>
+
+
